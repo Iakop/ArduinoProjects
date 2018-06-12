@@ -1,18 +1,16 @@
 #include <Joystick.h>
 #include <N64Controller.h>
 
-#define N64_PIN 13
+#define N64_PIN 12
 
 Joystick_ VirtJoystick; // Instantiates the joystick.
 N64Controller NController(N64_PIN);
 
 void setup() {
-  // put your setup code here, to run once:
-  VirtJoystick.setXAxisRange(0,255);
-  VirtJoystick.setYAxisRange(0,255);
+  VirtJoystick.setXAxisRange(-90,90);
+  VirtJoystick.setYAxisRange(-90,90);
   VirtJoystick.begin();
   NController.begin(N64_PIN);
-  Serial.begin(115200);
 }
 
 void loop() {
@@ -33,6 +31,4 @@ void loop() {
   VirtJoystick.setButton(13,NController.button_C_right());
   VirtJoystick.setXAxis(NController.axis_x());
   VirtJoystick.setYAxis(NController.axis_y());
-  Serial.print("X axis: "); Serial.println(NController.axis_x());
-  Serial.print("Y axis: "); Serial.println(NController.axis_y());
 }
