@@ -36,9 +36,17 @@ uint8_t remote_to_key(remote_code_t remote_code);
 remote_code_t remote_code;
 uint8_t keycode;
 
+
+#ifdef SERIAL_DEBUG
+char print_buf[255];
+#endif
+
 void setup(){
   myRecv.enableIRIn();
   Keyboard.begin();
+  #ifdef SERIAL_DEBUG
+  Serial.begin(115200);
+  #endif
 }
 
 void loop() {
@@ -46,11 +54,19 @@ void loop() {
   if (myRecv.decode(&results)) {
     // Evaluate the remote signal to a code
     remote_code = evaluate(results.value);
-
+    #ifdef SERIAL_DEBUG
+    sprintf(print_buf, "Remote = 0x%02x\n", remote_code);
+    Serial.print(print_buf);
+    #endif
+    
     // In the code is defined, send it as a keycode to through usb:
     if (remote_code != UNDEFINED){
       keycode = remote_to_key(remote_code);
       Keyboard.write(keycode);
+      #ifdef SERIAL_DEBUG
+      sprintf(print_buf, "Keycode = 0x%02x\n", keycode);
+      Serial.print(print_buf);
+      #endif
     }
     
     myRecv.resume(); // myRecv gør sig klar til næste værdi.
@@ -100,6 +116,50 @@ remote_code_t evaluate(uint32_t data){
       return BTN_9; 
       break;
 
+    case 0xFFA25D:  
+      return CH_DOWN; 
+      break;
+
+    case 0xFF629D:  
+      return CH; 
+      break;
+
+    case 0xFFE21D:  
+      return CH_UP;
+      break;
+
+    case 0xFF9867:  
+      return BTN_100; 
+      break;
+
+    case 0xFFB04F:  
+      return BTN_200; 
+      break;
+
+    case 0xFF22DD:  
+      return PREV; 
+      break;
+
+    case 0xFF02FD:  
+      return NEXT; 
+      break;
+
+    case 0xFFC23D:  
+      return PLAY_PAUSE; 
+      break;
+
+    case 0xFFE01F:  
+      return VOL_DOWN; 
+      break;
+
+    case 0xFFA857:  
+      return VOL_UP; 
+      break;
+
+    case 0xFF906F:  
+      return EQ; 
+      break;
+
     default:
       return UNDEFINED;
       break;
@@ -136,6 +196,18 @@ uint8_t remote_to_key(remote_code_t remote_code){
 
     case BTN_3:  
       return KEY_BACKSPACE; 
+      break;
+
+    case PLAY_PAUSE:  
+      return 0x20;
+      break;
+
+    case PREV:  
+      return KEY_LEFT_ARROW; 
+      break;
+
+    case NEXT:
+      return KEY_RIGHT_ARROW;
       break;
 
     default:
