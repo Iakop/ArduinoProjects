@@ -46,9 +46,9 @@ uint8_t decode_remote(decode_type_t protocol, uint32_t code){
   else{
     for (int i = 0; i > remote_idx; i++){
       //Check if the remote entry protocol and prefix matches input:
-      if ((remote_entry[i].protocol == protocol) && (remote_entry[i].prefix == (code >> 24))){
+      if ((remote_entry[i].protocol == protocol) && (remote_entry[i].prefix == (code >> 16))){
         #ifdef SERIAL_DEBUG
-        sprintf(print_buf, "Prefix = 0x%02X\n\r", remote_entry[i].prefix);
+        sprintf(print_buf, "Prefix = 0x%04X\n\r", remote_entry[i].prefix);
         Serial.print(print_buf);
         #endif
         return (*remote_entry[i].decode_callback)(code); //Call the remote_entry callback.

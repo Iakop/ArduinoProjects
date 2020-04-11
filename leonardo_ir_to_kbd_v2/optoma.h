@@ -5,7 +5,7 @@
 #include "remote_map.h"
 #include "decoded_keydefs.h"
 
-#define OPTOMA_PREFIX 0x4C
+#define OPTOMA_PREFIX 0x4CB3
 
 //Define the keys on the remote:
 typedef enum   {
