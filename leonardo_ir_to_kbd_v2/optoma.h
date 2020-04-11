@@ -19,7 +19,7 @@ typedef enum   {
                MODE           = 0x4CB3A05F,
                KEYSTONE       = 0x4CB3E01F,
                ASPECT_RATIO   = 0x4CB326D9,
-               3D             = 0x4CB3916E,
+               ENABLE_3D      = 0x4CB3916E,
                MUTE           = 0x4CB34AB5,
                DB             = 0x4CB322DD,
                SLEEP_TIMER    = 0x4CB3C639,

@@ -14,7 +14,7 @@ typedef enum {
               DEF_SPACE,
               DEF_PREV,
               DEF_NEXT,
-              EF_VOL_DOWN,
+              DEF_VOL_DOWN,
               DEF_VOL_UP,
               DEF_MUTE,
               DEF_INVALID,

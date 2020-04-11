@@ -63,7 +63,7 @@ uint8_t carmp3_callback(uint32_t code){
     case BTN_3:
       return DEF_BACK;
       break;
-    case PLAY_PAUSE;
+    case PLAY_PAUSE:
       return DEF_SPACE;
       break;
     case PREV:
