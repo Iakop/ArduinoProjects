@@ -4,7 +4,7 @@
 #define SERIAL_DEBUG
 
 #ifdef SERIAL_DEBUG
-char print_buf[255];
+char print_buf[512];
 #endif
 
 //Backbone lib that registers and run remote- keypresses
@@ -24,27 +24,28 @@ decode_results results;
 keydef_t keydef_val;
 
 void setup(){
+  //Begin serial, if serial print debugging is enabled:
+  #ifdef SERIAL_DEBUG
+  Serial.begin(115200);
+  delay(2000);
+  #endif  
+  
   //Setup IR receiver:
   myRecv.enableIRIn();
   //Register Optoma remote:
   register_remote(NEC, OPTOMA_PREFIX, &optoma_callback);
   //Register CarMP3 remote:
-  register_remote(NEC, CARMP3_PREFIX, &optoma_callback);
+  register_remote(NEC, CARMP3_PREFIX, &carmp3_callback);
   //Register Kodi keys:
   register_put_keys_callback(&put_kodi_keys);
   //Begin keyboard stream:
   Keyboard.begin();
-
-  //Begin serial, if serial print debugging is enabled:
-  #ifdef SERIAL_DEBUG
-  Serial.begin(115200);
-  #endif
 }
 
 void loop() {
   //Check if IR receiver has gotten any results:
   if (myRecv.decode(&results)) {
-
+    
     #ifdef SERIAL_DEBUG
     sprintf(print_buf, "Received remote press!\n\r");
     Serial.print(print_buf);

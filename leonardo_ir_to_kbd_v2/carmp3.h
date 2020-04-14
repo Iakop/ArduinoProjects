@@ -5,7 +5,7 @@
 #include "remote_map.h"
 #include "decoded_keydefs.h"
 
-#define CARMP3_PREFIX 0x00FF
+#define CARMP3_PREFIX (0x00FF)
 
 //Define the keys on the remote:
 typedef enum   {

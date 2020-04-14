@@ -17,8 +17,7 @@ typedef enum {
               DEF_VOL_DOWN,
               DEF_VOL_UP,
               DEF_MUTE,
-              DEF_INVALID,
-              DEF_EXTEND
+              DEF_INVALID = 0xFF
               }
 keydef_t;
 

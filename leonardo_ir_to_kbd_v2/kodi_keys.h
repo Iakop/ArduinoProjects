@@ -6,14 +6,16 @@
 void put_kodi_keys(keydef_t keydef_val){
 
   #ifdef SERIAL_DEBUG
-  sprintf(print_buf, "Keydef value = %d\n\r", keydef_val);
+  sprintf(print_buf, "Keydef value = 0x%02X\n\r", keydef_val);
   Serial.print(print_buf);
   #endif
   
   switch (keydef_val){
     case DEF_POWER_ON:
+      //Pull the RPi power-on pin HIGH:
       break;
     case DEF_POWER_OFF:
+      //Pull the RPi power-on pin LOW:
       break;
     case DEF_ARROW_UP:
       break;
@@ -42,8 +44,6 @@ void put_kodi_keys(keydef_t keydef_val){
     case DEF_MUTE:
       break;
     case DEF_INVALID:
-      break;
-    case DEF_EXTEND:
       break;
     default:
       #ifdef SERIAL_DEBUG
